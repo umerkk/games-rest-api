@@ -20,10 +20,17 @@ const PORT = 8080; // default port to listen
 
         // Enable CORS for all origins - In prod, this needs to be configured with strict URLs.
         APP.use(Cors({
-            methods: ['GET','POST'],
+            methods: ['GET', 'POST'],
         }));
         APP.use(LoggingMiddleware);
-        APP.use(Helmet());
+        APP.use(Helmet({
+            contentSecurityPolicy: {
+                useDefaults: true,
+                directives: {
+                    scriptSrc: ["'self'","'unsafe-inline'"],
+                },
+            }
+        }));
         APP.use(Compression());
         APP.use(Express.json());
 
