@@ -10,7 +10,7 @@ export default class DatabaseAdapter {
     public static async init(): Promise<void> {
         try {
             const defaultConnection = await Mongoose.connect(
-                process.env.NODE_ENV === 'production' ? process.env.DB_URL as string : 'mongodb+srv://demoUser:unity1234@metacasetinterview.udrwq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+                process.env.NODE_ENV === 'production' ? process.env.DB_URL as string : 'mongodb+srv://demoUser:unity1234@metacasetinterview.udrwq.mongodb.net/metacast?retryWrites=true&w=majority',
                 {
                     useNewUrlParser: true,
                     useUnifiedTopology: true,

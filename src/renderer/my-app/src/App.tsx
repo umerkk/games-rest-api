@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { Form, Input, TextArea, Button, Dropdown, Radio } from 'semantic-ui-react';
+import { Form, Input, TextArea, Button, Dropdown, Radio, Modal } from 'semantic-ui-react';
 import axios from 'axios'
 import GameImages from './types/GameImages';
 import GameEvent from './types/GameEvent';
@@ -30,6 +30,8 @@ const App: React.FC = () => {
   const [formImages, setImages] = useState<GameImages[]>([])
   const [imageId, setImageId] = useState<number>(0)
   const [tags, setTags] = useState<string[]>([])
+  const [isSuccessful, setisSuccessful] = useState<boolean>(false);
+  const [isModalOpen, setisModalOpen] = useState<boolean>(false);
   const [eventObject, setEventObject] = useState<GameEvent>(defaultGameEvent);
 
   const imageType = [
@@ -57,10 +59,24 @@ const App: React.FC = () => {
     console.log(tags)
   }, [eventObject, formImages, tags])
 
-  function handleOnSubmit() {
+  async function handleOnSubmit() {
 
-    setEventObject({...eventObject, images:formImages});
-    setEventObject({ ...eventObject, tags: tags });
+    setEventObject({ ...eventObject, images: [...formImages.filter((img) => !!img.type && !!img.url)] });
+    setEventObject({ ...eventObject, tags: [...tags.filter((tag) => tag)] });
+
+    try {
+      const resp = await axios.post(`/games`, eventObject, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      setisSuccessful(!isSuccessful)
+    } catch (err) {
+      setisSuccessful(false)
+    }
+    finally {
+      setisModalOpen(true);
+    }
   }
 
   function addNewImage() {
@@ -130,17 +146,18 @@ const App: React.FC = () => {
                   onChange={(e: React.FormEvent<HTMLInputElement>) => {
                     formImages[index].url = e.currentTarget.value;
                     setImages([...formImages]);
-                  } }
+                  }}
                 />
                 <Dropdown
                   placeholder='Select a type'
                   fluid
                   selection
+                  required
                   options={imageType}
                   onChange={(e: SyntheticEvent<HTMLElement>, { value }) => {
                     formImages[index].type = Number(value)
                     setImages([...formImages])
-                  } }
+                  }}
                 />
               </>
             ))
@@ -153,6 +170,7 @@ const App: React.FC = () => {
             placeholder='Select a type'
             fluid
             selection
+            required
             onChange={(e: SyntheticEvent<HTMLElement>, { value }) => setEventObject({ ...eventObject, type: Number(value) })}
             options={[
               {
@@ -183,7 +201,7 @@ const App: React.FC = () => {
                     const newTags = [...tags];
                     newTags[index] = e.currentTarget.value;
                     setTags(newTags);
-                  } }
+                  }}
                 />
               </>
             ))
@@ -250,6 +268,21 @@ const App: React.FC = () => {
           />
           <Button type='submit' color='green'>Submit</Button>
         </Form>
+
+        <Modal
+          dimmer={true}
+          open={isModalOpen}
+        >
+          <Modal.Header>Result</Modal.Header>
+          <Modal.Content>
+            {isSuccessful ? 'Your game listing has been successfully registered' : 'Error occured while adding your game listing'}
+          </Modal.Content>
+          <Modal.Actions>
+            <Button positive onClick={() => setisModalOpen(!isModalOpen)}>
+              Close
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </div>
     </div>
   );

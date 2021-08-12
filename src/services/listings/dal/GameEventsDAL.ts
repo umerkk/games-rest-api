@@ -12,6 +12,7 @@ export default class GameEventsDAL {
             { $match: {} },
             { $skip: skip },
             { $limit: limit },
+            { $project: {'category': 1, 'title': 1, 'subtitle': 1, 'type': 1, 'images': 1, 'author': 1, 'duration': 1, 'version': 1}}
         ])
     }
 
