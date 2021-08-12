@@ -44,12 +44,11 @@ Once installed, you can build the project using
 The Build command, will transpile the React code, bundle it into a single file & move it to the `build` folder in the root of the project. There the API can also render the React UI
 
 # Deployment
-The project is shipped with a self contained Docker Image for the API & a Docker swarm that consists of the API & a standalone MongoDB.
+The project is shipped with a self contained Docker Image for the API & a Docker compose file that consists of the API & a standalone MongoDB.
 
 ### Prerequisites
 
  - Docker Engine
- -  Docker Swarm.
 
 Navigate to the `root` of the project and run the following command.
 

@@ -22,7 +22,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf ../../../build/renderer && mv ./build ../../../build/renderer",
+    "build": "react-scripts build",
+    "clean-build": "rm -rf ../../build/renderer",
+    "move-build": "mv ./build ../../build/renderer",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

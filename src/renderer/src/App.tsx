@@ -53,19 +53,13 @@ const App: React.FC = () => {
     setTags([''])
   }, [])
 
-  useEffect(() => {
-    console.log(eventObject)
-    console.log(formImages)
-    console.log(tags)
-  }, [eventObject, formImages, tags])
-
   async function handleOnSubmit() {
 
     setEventObject({ ...eventObject, images: [...formImages.filter((img) => !!img.type && !!img.url)] });
     setEventObject({ ...eventObject, tags: [...tags.filter((tag) => tag)] });
 
     try {
-      const resp = await axios.post(`/games`, eventObject, {
+      await axios.post(`/games`, eventObject, {
         headers: {
           'Content-Type': 'application/json'
         }
