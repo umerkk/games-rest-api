@@ -5,6 +5,13 @@ import GameEvent from '../types/GameEvent';
 export default class GameEventsDAL {
     private static model = GameEventsModel;
 
+    /**
+     * Executes the wildcard select query against GameEvent model.
+     * It projects specific attributes as defined in $project.
+     * @param limit - # of documents to return
+     * @param skip - # of documents to skip from 0.
+     * @returns - Array of GameEvents
+     */
     public static async getAll(limit: number, skip: number): Promise<GameEvent[]> {
         Logger.info(limit);
         Logger.info(skip);

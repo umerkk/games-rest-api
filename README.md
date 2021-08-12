@@ -60,6 +60,14 @@ you can browse the API by going to
 
 The UI can be reached at `http://localhost/ui`
 
+### Logs
+The REST API server is going to emit logs once it is running either in production or development environment.
+A separate folder called `logs` will be created at the `root` of the the project with the following files.
+
+ - `Combined.log` - A combined file that consists of all the logs emitted by the server (severity based on the environment)
+ - `Debug.log` - Debugging logs emitted by the server - only available when running outside the production environment)
+ - `Error.log`- Errors occurred during the runtime.
+
 ## API Documentation
 
 The example & usage of the API has been documented as part of POSTMAN collection, you can view them at https://documenter.getpostman.com/view/4066746/Tzz5veRn

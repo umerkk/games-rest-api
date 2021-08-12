@@ -8,6 +8,11 @@ export default class ListingRoute extends BaseRoute {
         super(expressApp, 'ListingRoute');
     }
 
+    /**
+     * HTTP endpoints & their handlers.
+     * Each endpoint must first pass the Validation defined for each endpoint.
+     * Then only the request is passed to its controller.
+     */
     registerRoutes() {
         this.app.route('/games')
         .get(getAllValidator, GameEventsController.getAllListings)

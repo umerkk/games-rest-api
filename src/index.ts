@@ -1,5 +1,5 @@
 import * as http from 'http';
-import Express, { NextFunction } from 'express';
+import Express from 'express';
 import Cors from 'cors';
 import Helmet from 'helmet';
 import Compression from 'compression';
@@ -27,7 +27,7 @@ const PORT = 8080; // default port to listen
             contentSecurityPolicy: {
                 useDefaults: true,
                 directives: {
-                    scriptSrc: ["'self'","'unsafe-inline'"],
+                    scriptSrc: ["'self'","'unsafe-inline'"], // To allow same host ReactUI get static contents
                 },
             }
         }));

@@ -8,6 +8,10 @@ const gameImageSchema = new Schema<GameImage>({
     url: String,
     type: Number
 });
+
+/**
+ * Mongoose Schema with default validations.
+ */
 const gameEventSchema = new Schema<GameEvent>({
     category: { type: String, required: true },
     title: { type: String, required: true },

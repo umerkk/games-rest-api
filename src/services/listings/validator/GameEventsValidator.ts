@@ -1,7 +1,9 @@
-import { triggerAsyncId } from 'async_hooks'
 import { checkSchema } from 'express-validator'
 import { isValidObjectId } from 'mongoose'
 
+/**
+ * Schema validators for the incoming HTTP requests for each endpoint.
+ */
 export const getAllValidator = checkSchema({
     limit: {
         in: ['query'],
