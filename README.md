@@ -55,9 +55,9 @@ Navigate to the `root` of the project and run the following command.
 `docker-compose up`
 
 you can browse the API by going to 
-`http://localhost/`
+`http://localhost:8080/`
 
-The UI can be reached at `http://localhost/ui`
+The UI can be reached at `http://localhost:8080/ui`
 
 ### Logs
 The REST API server is going to emit logs once it is running either in production or development environment.
